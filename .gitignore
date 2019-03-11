@@ -5,6 +5,8 @@ bin/
 *.db
 *.pdb
 Debug/
+.vs/
+*.VC.db
 
 #cmake
 # See https://github.com/github/gitignore/blob/master/CMake.gitignore
