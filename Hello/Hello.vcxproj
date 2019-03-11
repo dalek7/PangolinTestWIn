@@ -68,7 +68,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>C:\Users\seung\work\repos\PangolinTestWindows\Pangolin\build\external\zlib\lib\;C:\Users\seung\work\repos\PangolinTestWindows\Pangolin\build\Release;C:\Users\seung\work\repos\PangolinTestWindows\Pangolin\build\external\glew\include;C:\Users\seung\work\repos\PangolinTestWindows\Pangolin\include;C:\Users\seung\work\repos\PangolinTestWindows\Pangolin\build\external;C:\Users\seung\work\repos\PangolinTestWindows\Pangolin\build\src\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\seung\work\repos\PangolinTestWindows\Pangolin\build\external\libpng\lib;C:\Users\seung\work\repos\PangolinTestWindows\Pangolin\build\external\zlib\lib\;C:\Users\seung\work\repos\PangolinTestWindows\Pangolin\build\external\libjpeg\lib\;C:\Users\seung\work\repos\PangolinTestWindows\Pangolin\build\Release;C:\Users\seung\work\repos\PangolinTestWindows\Pangolin\build\external\glew\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -81,7 +84,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_HAS_ITERATOR_DEBUGGING=1;_ITERATOR_DEBUG_LEVEL=2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>glew.lib;pangolin.lib;jpeg.lib;zlib.lib;libpng16.lib;glu32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
