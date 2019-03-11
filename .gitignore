@@ -1,6 +1,11 @@
 # build
 bin/
 
+#MSVC
+*.db
+*.pdb
+Debug/
+
 #cmake
 # See https://github.com/github/gitignore/blob/master/CMake.gitignore
 CMakeLists.txt.user
