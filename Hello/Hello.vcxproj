@@ -69,8 +69,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\seung\work\repos\PangolinTestWindows\Pangolin\build\external\zlib\lib\;C:\Users\seung\work\repos\PangolinTestWindows\Pangolin\build\Release;C:\Users\seung\work\repos\PangolinTestWindows\Pangolin\build\external\glew\include;C:\Users\seung\work\repos\PangolinTestWindows\Pangolin\include;C:\Users\seung\work\repos\PangolinTestWindows\Pangolin\build\external;C:\Users\seung\work\repos\PangolinTestWindows\Pangolin\build\src\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\seung\work\repos\PangolinTestWindows\Pangolin\build\external\libpng\lib;C:\Users\seung\work\repos\PangolinTestWindows\Pangolin\build\external\zlib\lib\;C:\Users\seung\work\repos\PangolinTestWindows\Pangolin\build\external\libjpeg\lib\;C:\Users\seung\work\repos\PangolinTestWindows\Pangolin\build\Release;C:\Users\seung\work\repos\PangolinTestWindows\Pangolin\build\external\glew\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\Pangolin\build\external\zlib\lib\;..\Pangolin\build\external\glew\include;..\Pangolin\include;..\Pangolin\build\external;..\Pangolin\build\src\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\Pangolin\build\external\libpng\lib;..\Pangolin\build\external\zlib\lib\;..\Pangolin\build\external\libjpeg\lib\;..\Pangolin\build\Release;..\Pangolin\build\external\glew\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
