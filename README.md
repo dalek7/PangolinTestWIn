@@ -2,7 +2,7 @@
 Pangolin in Windows
 
 ### Example 1 : Hello
-<img src='Hello/Screenshots/helloworld.png' width =400px/>
+<img src='01_Hello/Screenshots/helloworld.png' width =400px/>
 
 
 ## Build Pangolin
