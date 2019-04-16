@@ -69,8 +69,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>Thirdparty\Pangolin\build\external\zlib\lib\;Thirdparty\Pangolin\build\external\glew\include;Thirdparty\Pangolin\include;Thirdparty\Pangolin\build\external;Thirdparty\Pangolin\build\src\include;$(IncludePath)</IncludePath>
-    <LibraryPath>Thirdparty\Pangolin\build\external\libpng\lib;Thirdparty\Pangolin\build\external\zlib\lib\;Thirdparty\Pangolin\build\external\libjpeg\lib\;Thirdparty\Pangolin\build\Release;Thirdparty\Pangolin\build\external\glew\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\Thirdparty\Pangolin\build\external\zlib\lib\;..\Thirdparty\Pangolin\build\external\glew\include;..\Thirdparty\Pangolin\include;..\Thirdparty\Pangolin\build\external;..\Thirdparty\Pangolin\build\src\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\Thirdparty\Pangolin\build\external\libpng\lib;..\Thirdparty\Pangolin\build\external\zlib\lib\;..\Thirdparty\Pangolin\build\external\libjpeg\lib\;..\Thirdparty\Pangolin\build\Release;..\Thirdparty\Pangolin\build\external\glew\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
