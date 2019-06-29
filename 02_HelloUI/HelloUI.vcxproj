@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{58C245FA-1B7B-4859-AF4F-BDBDD166FA02}</ProjectGuid>
+    <ProjectGuid>{96E86706-10BC-4D02-8A4A-D969189D8879}</ProjectGuid>
     <RootNamespace>Hello</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
     <ProjectName>HelloUI</ProjectName>
