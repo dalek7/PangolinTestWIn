@@ -2,6 +2,7 @@
 bin/
 
 *.bak
+.idea/
 
 #MSVC
 *.db
