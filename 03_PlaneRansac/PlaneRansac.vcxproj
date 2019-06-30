@@ -69,7 +69,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>..\Thirdparty\Pangolin\build\external\zlib\lib\;..\Thirdparty\Pangolin\build\external\glew\include;..\Thirdparty\Pangolin\include;..\Thirdparty\Pangolin\build\external;..\Thirdparty\Pangolin\build\src\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>..\Thirdparty;..\Thirdparty\Pangolin\build\external\zlib\lib\;..\Thirdparty\Pangolin\build\external\glew\include;..\Thirdparty\Pangolin\include;..\Thirdparty\Pangolin\build\external;..\Thirdparty\Pangolin\build\src\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <LibraryPath>..\Thirdparty\Pangolin\build\external\libpng\lib;..\Thirdparty\Pangolin\build\external\zlib\lib\;..\Thirdparty\Pangolin\build\external\libjpeg\lib\;..\Thirdparty\Pangolin\build\Release;..\Thirdparty\Pangolin\build\external\glew\lib;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -117,6 +117,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Thirdparty\geometry\Matrices.cpp" />
+    <ClCompile Include="..\Thirdparty\geometry\mPlane.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +126,10 @@
     <ClInclude Include="..\Thirdparty\BB\bbutilfile.h" />
     <ClInclude Include="..\Thirdparty\BB\bbutilstring.h" />
     <ClInclude Include="..\Thirdparty\BB\mytime.h" />
+    <ClInclude Include="..\Thirdparty\geometry\Matrices.h" />
+    <ClInclude Include="..\Thirdparty\geometry\mPlane.h" />
+    <ClInclude Include="..\Thirdparty\geometry\ttMath.h" />
+    <ClInclude Include="..\Thirdparty\geometry\Vectors.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

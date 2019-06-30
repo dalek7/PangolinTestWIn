@@ -16,10 +16,19 @@
     <Filter Include="Header Files\Thirdparty">
       <UniqueIdentifier>{76de0924-5916-4af5-95ce-06e84655d6e1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Thirdparty\plane">
+      <UniqueIdentifier>{68a5dc65-f347-48fc-9c1c-b1d8894894d1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Thirdparty\geometry\mPlane.cpp">
+      <Filter>Header Files\Thirdparty\plane</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Thirdparty\geometry\Matrices.cpp">
+      <Filter>Header Files\Thirdparty\plane</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -34,6 +43,18 @@
     </ClInclude>
     <ClInclude Include="..\Thirdparty\BB\mytime.h">
       <Filter>Header Files\Thirdparty</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Thirdparty\geometry\mPlane.h">
+      <Filter>Header Files\Thirdparty\plane</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Thirdparty\geometry\ttMath.h">
+      <Filter>Header Files\Thirdparty\plane</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Thirdparty\geometry\Vectors.h">
+      <Filter>Header Files\Thirdparty\plane</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Thirdparty\geometry\Matrices.h">
+      <Filter>Header Files\Thirdparty\plane</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

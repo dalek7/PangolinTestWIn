@@ -3,16 +3,37 @@
 #include "../Thirdparty/BB/bbutil.h"
 #include <iostream>
 
+#include <vector>
+
+
+#ifndef PI
+#define PI              3.14159265358979323   /* 180 deg */
+#endif
+
+#ifndef DEG
+#define DEG(a)          (180.*a/PI )
+#endif 
+
+#ifndef RAD
+#define RAD(a)          (PI*a/180.)
+#endif 
+
 
 using namespace std;
+#include "geometry/mPlane.h"
 
-
-int loadfile(string fname);
+void glCircle3f(GLfloat x, GLfloat y, GLfloat z, GLfloat r);
+int LoadFile(string fname,  vector<Vector3> &vPts, char deliminiter=',');
 int main()
 {
 	string fnload = "data/pts_20190629_120246_715000.txt";
-	
-	int ret = loadfile(fnload);
+	std::vector<Vector3> vPts;
+	int ret = LoadFile(fnload, vPts, '\t');
+	if (ret)
+	{
+		cout << "Loaded...." << fnload << "\t..." <<  vPts.size() << endl;
+	}
+
 	pangolin::CreateWindowAndBind("Hello Points", 640, 480);
 	glEnable(GL_DEPTH_TEST);
 	// Define Projection and initial ModelView matrix
@@ -48,20 +69,37 @@ int main()
 		// Clear screen and activate view to render into
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
 		if (pangolin::Pushed(a_button))
 		{
 			std::cout << "You Pushed a button!" << std::endl;
 			a_double = 3.3; //for test
 		}
 
-		a_double = 3.0 + sin((double)count / 1000.0);
+		//a_double = 3.0 + sin((double)count / 1000.0);
 
 		d_cam.Activate(s_cam);
 
 		// Render OpenGL Cube
-		pangolin::glDrawColouredCube();
+		//pangolin::glDrawColouredCube();
 
+		// Draw points defined by vPts
+
+		glBegin(GL_POINTS);
+		{
+			for (vector<Vector3>::const_iterator it = vPts.begin(); it != vPts.end(); ++it)
+			{
+				glColor3ub(255, 255, 255);
+				if (1)
+				{
+					glVertex3d(it->x, it->y, it->z - 0.01);
+				}
+				else
+				{
+					glCircle3f(it->x, it->y, it->z, 0.02);
+				}
+			}
+		}
+		glEnd();
 		// Swap frames and Process Events
 		pangolin::FinishFrame();
 		count++;
@@ -72,7 +110,7 @@ int main()
 }
 
 //http://www.cplusplus.com/forum/general/150001/
-int loadfile(string fname )
+int LoadFile(std::string fname, vector<Vector3> &vPts, char deliminiter)
 {
 	//std::cout << "Current path is " << GetWorkingDir() << "\n";
 	std::ifstream infile(fname);
@@ -87,13 +125,33 @@ int loadfile(string fname )
 		std::string field;
 		std::vector<std::string> separated_fields;
 		std::istringstream iss_line(line);
-		while (std::getline(iss_line, field, '\t')) { // Split line on the ':' character
+		Vector3 pts;
+		int i = 0;
+		while (std::getline(iss_line, field, deliminiter)) { // Split line on the ':' character
+			//pts.x = atof(field.c_str());
+			pts[i++] = atof(field.c_str());
 			separated_fields.push_back(field);    // Vector containing each field, i.e. name, address...
 		}
 
-		cout << separated_fields[0] << endl;
+		vPts.push_back(pts);
+		//cout << pts[0] << "\t" << pts[1] << "\t" << pts[2] << endl;
 	}
 
 
 	return 1;
+}
+
+void glCircle3f(GLfloat x, GLfloat y, GLfloat z, GLfloat r)
+{
+	float step = 360.0 / (2.0*PI*r) / 16;
+	glPushMatrix();
+	glTranslatef(x, y, z);
+	glBegin(GL_LINE_STRIP);
+	//glVertex2f(0, 0);
+	for (float i = 0; i<360; i += step)
+	{
+		glVertex3f((cos(RAD(i))*r), (sin(RAD(i))*r), 0);
+	}
+	glEnd();
+	glPopMatrix();
 }
