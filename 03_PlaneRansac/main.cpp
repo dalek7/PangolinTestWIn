@@ -145,6 +145,8 @@ int main()
 			//glCircle3f(it->x, it->y, it->z - 0.01, 0.02);
 		}
 		//glCross3f(centerPts.x, centerPts.y, centerPts.z, 1);
+
+		glColor3ub(255, 255, 255);
 		glPushMatrix();
 			glTranslatef(centerPts.x, centerPts.y, centerPts.z);
 			DrawSphere(0.1, 16, 16);
