@@ -36,7 +36,7 @@ public:
 	void plane(Vector3 &p0, Vector3 &p1, Vector3 &p2);
 	double length(Vector3 &pt);
 	static double ransac_plane_fitting(std::vector<Vector3> vpts, std::vector<unsigned int>& vidx_inliers, std::vector<Vector3>& vpts_inliers, mPlane &model, double distance_threshold);
-
+	static Vector3 CalcCentroid(std::vector<Vector3>);
 public:
 	void DetectPlane(std::vector<Vector3>);
 		
@@ -48,11 +48,12 @@ public:
 
 	void	GetFourPoints(Vector3 &p1,Vector3 &p2,Vector3 &p3,Vector3 &p4, float w=1.0, float h=1.0);
 
-
+	
 private:
     Vector3 m_normal; // <a, b, c>
     float m_d;
 
+	Vector3 centerPlane; //for applications
 	//double a, b, c, d;	// 평면의 방정식: ax + bx + cz + d = 0
 
 

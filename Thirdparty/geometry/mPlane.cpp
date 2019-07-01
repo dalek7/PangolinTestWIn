@@ -7,7 +7,8 @@ double model_verification(std::vector<Vector3> &inliers, std::vector<unsigned in
 using namespace std;
 mPlane::mPlane(float a, float b, float c, float d) : 
 				m_normal(a, b, c),
-				m_d(d)
+				m_d(d), 
+				centerPlane(0,0,0)
 {
 
 	float length = m_normal.length();
@@ -27,6 +28,7 @@ void mPlane::Desc()
 {
 	std::cout << m_normal.x << "x +" << m_normal.y << "y+ " << m_normal.z << "z + " <<m_d << std::endl;
 }
+
 
 
 void mPlane::DetectPlane(std::vector<Vector3> vpts)
@@ -118,6 +120,23 @@ double mPlane::length(Vector3 &pt)
 	return sqrt(ka*ka + kb*kb + kc*kc);
 }
 			
+
+
+// static
+Vector3 mPlane::CalcCentroid(std::vector<Vector3> vpts1)
+{
+	Vector3 sum;
+
+	for (std::vector<Vector3>::const_iterator it = vpts1.begin(); it != vpts1.end(); ++it)
+	{
+		sum += *it;
+	}
+
+	sum /= (float) vpts1.size();
+
+	return sum;
+}
+
 double mPlane::	ransac_plane_fitting(std::vector<Vector3> vpts, std::vector<unsigned int>& vidx_inliers, std::vector<Vector3>& vpts_inliers, mPlane &model, double distance_threshold)
 {
 	int no_data = vpts.size();
@@ -277,56 +296,3 @@ bool compute_model_parameter(std::vector<Vector3> samples, int no_samples, mPlan
 		
 	}
 }
-
-
-/*
-
-double ransac_plane_fitting (sPoint *data, int no_data, sPlane &model, double distance_threshold)
-{
-const int no_samples = 3;
-
-if (no_data < no_samples) {
-return 0.;
-}
-
-sPoint *samples = new sPoint[no_samples];
-
-int no_inliers = 0;
-sPoint *inliers = new sPoint[no_data];
-
-sPlane estimated_model;
-double max_cost = 0.;
-
-int max_iteration = (int)(1 + log(1. - 0.99)/log(1. - pow(0.5, no_samples)));
-
-for (int i = 0; i<max_iteration; i++) {
-// 1. hypothesis
-
-// 원본 데이터에서 임의로 N개의 셈플 데이터를 고른다.
-get_samples (samples, no_samples, data, no_data);
-
-// 이 데이터를 정상적인 데이터로 보고 모델 파라메터를 예측한다.
-compute_model_parameter (samples, no_samples, estimated_model);
-// if (!estimated_model.convert_std_form ()) { --i; continue; }
-
-// 2. Verification
-
-// 원본 데이터가 예측된 모델에 잘 맞는지 검사한다.
-double cost = model_verification (inliers, &no_inliers, estimated_model, data, no_data, distance_threshold);
-
-// 만일 예측된 모델이 잘 맞는다면, 이 모델에 대한 유효한 데이터로 새로운 모델을 구한다.
-if (max_cost < cost) {
-max_cost = cost;
-
-compute_model_parameter (inliers, no_inliers, model);
-// model.convert_std_form ();
-}
-}
-
-delete [] samples;
-delete [] inliers;
-
-return max_cost;
-}
-
-*/

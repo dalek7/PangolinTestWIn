@@ -23,7 +23,10 @@ using namespace std;
 #include "geometry/mPlane.h"
 
 void glCircle3f(GLfloat x, GLfloat y, GLfloat z, GLfloat r);
-void DrawGrid(float size = 10, float step = 1, bool xz = true);
+void DrawGrid(float size = 10, float step = 1, bool xz = true, bool lighton = true);
+void DrawSphere(double r, int lats, int longs);
+
+void glCross3f(GLfloat x, GLfloat y, GLfloat z, GLfloat d);
 
 int LoadFile(string fname,  vector<Vector3> &vPts, char deliminiter=',');
 int main()
@@ -48,6 +51,11 @@ int main()
 	sprintf_s(buf, "%.2f %c", 100.0f* vpts_inliers.size() / (float) vPts.size(), 37);
 	cout << vPts.size() << " --> " << vpts_inliers.size() << " ( " <<  string(buf) <<" )" << endl;
 	cout << vidx_inliers.size() << endl;
+	
+
+	Vector3 centerPts = mPlane::CalcCentroid(vpts_inliers);
+	cout << "center : " << centerPts << endl;
+
 	
 
 	// TODo : display inliers !
@@ -101,7 +109,7 @@ int main()
 		d_cam.Activate(s_cam);
 
 
-		DrawGrid(10, 1);
+		
 		// Render OpenGL Cube
 		//pangolin::glDrawColouredCube();
 
@@ -136,7 +144,12 @@ int main()
 			glCircle3f(it->x, it->y, it->z - 0.01, 0.04);
 			//glCircle3f(it->x, it->y, it->z - 0.01, 0.02);
 		}
-
+		//glCross3f(centerPts.x, centerPts.y, centerPts.z, 1);
+		glPushMatrix();
+			glTranslatef(centerPts.x, centerPts.y, centerPts.z);
+			DrawSphere(0.1, 16, 16);
+		glPopMatrix();
+		///DrawGrid(10, 1, true, false);
 		// TODO 
 		// Draw plane !
 
@@ -248,10 +261,11 @@ void drawSphere(double r, int lats, int longs)
 
 
 
-void DrawGrid(float size, float step, bool xz)
+void DrawGrid(float size, float step, bool xz, bool lighton)
 {
 	// disable lighting
-	glDisable(GL_LIGHTING);
+	if(lighton)
+		glDisable(GL_LIGHTING);
 
 	glBegin(GL_LINES);
 
@@ -315,6 +329,35 @@ void DrawGrid(float size, float step, bool xz)
 
 	// enable lighting back
 	glColor3f(1, 1, 1);
-	glEnable(GL_LIGHTING);
+
+	if (lighton)
+		glEnable(GL_LIGHTING);
 }
 
+void DrawSphere(double r, int lats, int longs)
+{
+
+	int i, j;
+	for (i = 0; i <= lats; i++) {
+		double lat0 = PI * (-0.5 + (double)(i - 1) / lats);
+		double z0 = sin(lat0);
+		double zr0 = cos(lat0);
+
+		double lat1 = PI * (-0.5 + (double)i / lats);
+		double z1 = sin(lat1);
+		double zr1 = cos(lat1);
+
+		glBegin(GL_QUAD_STRIP);
+		for (j = 0; j <= longs; j++) {
+			double lng = 2 * PI * (double)(j - 1) / longs;
+			double x = cos(lng);
+			double y = sin(lng);
+
+			glNormal3f(r* x * zr0, r* y * zr0, r* z0);
+			glVertex3f(r* x * zr0, r* y * zr0, r* z0);
+			glNormal3f(r* x * zr1, r* y * zr1, r* z1);
+			glVertex3f(r* x * zr1, r* y * zr1, r* z1);
+		}
+		glEnd();
+	}
+}
