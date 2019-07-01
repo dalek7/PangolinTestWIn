@@ -35,7 +35,7 @@ public:
 	// from sPlane
 	void plane(Vector3 &p0, Vector3 &p1, Vector3 &p2);
 	double length(Vector3 &pt);
-	static double ransac_plane_fitting(std::vector<Vector3> vpts, std::vector<Vector3>& vpts_inliers, mPlane &model, double distance_threshold);
+	static double ransac_plane_fitting(std::vector<Vector3> vpts, std::vector<unsigned int>& vidx_inliers, std::vector<Vector3>& vpts_inliers, mPlane &model, double distance_threshold);
 
 public:
 	void DetectPlane(std::vector<Vector3>);

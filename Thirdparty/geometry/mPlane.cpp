@@ -2,7 +2,7 @@
 void get_samples(std::vector<Vector3>& samples, int no_samples, std::vector<Vector3> data, int no_data);
 bool find_in_samples(std::vector<Vector3> samples, int no_samples_to_search, Vector3 data);
 bool compute_model_parameter(std::vector<Vector3> samples, int no_samples, mPlane &model);
-double model_verification(std::vector<Vector3> &inliers, int &no_inliers, mPlane &estimated_model, std::vector<Vector3> data, int no_data, double distance_threshold);
+double model_verification(std::vector<Vector3> &inliers, std::vector<unsigned int>& vidx_inliers, mPlane estimated_model, std::vector<Vector3> data, int no_data, double distance_threshold);
 
 using namespace std;
 mPlane::mPlane(float a, float b, float c, float d) : 
@@ -117,8 +117,8 @@ double mPlane::length(Vector3 &pt)
 	double ka = k*a, kb = k*b, kc = k*c;
 	return sqrt(ka*ka + kb*kb + kc*kc);
 }
-
-double mPlane::ransac_plane_fitting(std::vector<Vector3> vpts, std::vector<Vector3>& vpts_inliers, mPlane &model, double distance_threshold)
+			
+double mPlane::	ransac_plane_fitting(std::vector<Vector3> vpts, std::vector<unsigned int>& vidx_inliers, std::vector<Vector3>& vpts_inliers, mPlane &model, double distance_threshold)
 {
 	int no_data = vpts.size();
 	const int no_samples = 3;
@@ -131,8 +131,8 @@ double mPlane::ransac_plane_fitting(std::vector<Vector3> vpts, std::vector<Vecto
 	std::vector<Vector3> samples(no_samples);
 	//samples.reserve(no_samples);
 
-	int no_inliers = 0;
-	std::vector<Vector3> inliers(no_data);
+	
+	std::vector<Vector3> inliers;// (no_data);
 	//inliers.reserve(no_data);
 	
 	mPlane estimated_model;
@@ -154,13 +154,16 @@ double mPlane::ransac_plane_fitting(std::vector<Vector3> vpts, std::vector<Vecto
 		// 2. Verification
 
 		// 원본 데이터가 예측된 모델에 잘 맞는지 검사한다.
-		double nb_valid = model_verification(inliers, no_inliers, estimated_model, vpts, no_data, distance_threshold);
+		std::vector<unsigned int> vidx;
+		double nb_valid = model_verification(inliers, vidx, estimated_model, vpts, no_data, distance_threshold);
 		std::cout << i << "/" << max_iteration << "\t" << nb_valid << "/" << no_data << "  "; 
 		// 만일 예측된 모델이 잘 맞는다면, 이 모델에 대한 유효한 데이터로 새로운 모델을 구한다.
 		if (max_nb_valid < nb_valid) {
 			max_nb_valid = nb_valid;
 
 			vpts_inliers = inliers;
+			vidx_inliers = vidx;
+			int no_inliers = inliers.size();
 			compute_model_parameter(inliers, no_inliers, model_best); // no_inliers > 3
 			cout << "++++++";
 			
@@ -177,26 +180,22 @@ double mPlane::ransac_plane_fitting(std::vector<Vector3> vpts, std::vector<Vecto
 }
 
 
-double model_verification(std::vector<Vector3> &inliers, int &no_inliers, mPlane &estimated_model, std::vector<Vector3> data, int no_data, double distance_threshold)
+double model_verification(std::vector<Vector3> &inliers, std::vector<unsigned int>& vidx_inliers, mPlane estimated_model, std::vector<Vector3> data, int no_data, double distance_threshold)
 {
-	no_inliers = 0;
-
+	//no_inliers = 0;
+	inliers.clear();
+	vidx_inliers.clear();
 	double nb_valid = 0.;
 
 	for (int i = 0; i<no_data; i++) {
 		// 직선에 내린 수선의 길이를 계산한다.
 		double distance = estimated_model.length(data[i]);
-		
 
 		// 예측된 모델에서 유효한 데이터인 경우, 유효한 데이터 집합에 더한다.
 		if (distance < distance_threshold) {
+			vidx_inliers.push_back(i); 
 			nb_valid += 1.;
-
-			inliers[no_inliers].x = data[i].x;
-			inliers[no_inliers].y = data[i].y;
-			inliers[no_inliers].z = data[i].z;
-
-			++no_inliers;
+			inliers.push_back(data[i]);
 		}
 	}
 	return nb_valid;

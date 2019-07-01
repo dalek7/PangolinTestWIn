@@ -36,14 +36,17 @@ int main()
 
 	//ransac_plane_fitting(std::vector<Vector3> vpts, mPlane &model, double distance_threshold);
 	mPlane model1;
-	double threshold = 0.1;
+	double threshold = 0.05;
 	std::vector<Vector3> vpts_inliers;
-	double ret1 = mPlane::ransac_plane_fitting(vPts, vpts_inliers, model1, threshold);
+	std::vector<unsigned int> vidx_inliers;
+	double ret1 = mPlane::ransac_plane_fitting(vPts, vidx_inliers, vpts_inliers, model1, threshold);
 	
 	model1.Desc();
-	cout << vPts.size() << " --> " << vpts_inliers.size() << endl;
-
-	// Ransac plane
+	char buf[255];
+	sprintf_s(buf, "%.2f %c", 100.0f* vpts_inliers.size() / (float) vPts.size(), 37);
+	cout << vPts.size() << " --> " << vpts_inliers.size() << " ( " <<  string(buf) <<" )" << endl;
+	cout << vidx_inliers.size() << endl;
+	
 
 	// TODo : display inliers !
 
@@ -99,14 +102,17 @@ int main()
 		//pangolin::glDrawColouredCube();
 
 		// Draw points defined by vPts
-
+		glPointSize(3);
 		glBegin(GL_POINTS);
 		{
+
 			for (vector<Vector3>::const_iterator it = vPts.begin(); it != vPts.end(); ++it)
 			{
+
 				glColor3ub(255, 255, 255);
 				if (1)
 				{
+
 					glVertex3d(it->x, it->y, it->z - 0.01);
 				}
 				else
@@ -114,8 +120,23 @@ int main()
 					glCircle3f(it->x, it->y, it->z, 0.02);
 				}
 			}
+
 		}
 		glEnd();
+
+		
+		glColor3ub(255, 0, 0);
+		for (vector<Vector3>::const_iterator it = vpts_inliers.begin(); it != vpts_inliers.end(); ++it)
+		{
+			//glVertex3d(it1->x, it1->y, it1->z - 0.01);
+			glCircle3f(it->x, it->y, it->z - 0.01, 0.04);
+			//glCircle3f(it->x, it->y, it->z - 0.01, 0.02);
+		}
+
+		// TODO 
+		// Draw plane !
+
+
 		// Swap frames and Process Events
 		pangolin::FinishFrame();
 		count++;
