@@ -34,11 +34,17 @@ int main()
 		cout << "Loaded...." << fnload << "\t..." <<  vPts.size() << endl;
 	}
 
-	pangolin::CreateWindowAndBind("Hello Points", 640, 480);
+	// Ransac plane
+
+
+
+	int w = 640;// 640;
+	int h = 480;// 480;
+	pangolin::CreateWindowAndBind("Hello Points", w, h);
 	glEnable(GL_DEPTH_TEST);
 	// Define Projection and initial ModelView matrix
 	pangolin::OpenGlRenderState s_cam(
-		pangolin::ProjectionMatrix(640, 480, 420, 420, 320, 240, 0.1, 1000),
+		pangolin::ProjectionMatrix(w, h, 420, 420, w/2, h/2, 0.1, 1000),
 		pangolin::ModelViewLookAt(-0, 0.5, -3, 0, 0, 0, pangolin::AxisY)
 	);
 
@@ -49,7 +55,7 @@ int main()
 
 	// Add named OpenGL viewport to window and provide 3D Handler
 	pangolin::View& d_cam = pangolin::CreateDisplay()
-		.SetBounds(0.0, 1.0, pangolin::Attach::Pix(UI_WIDTH), 1.0, -640.0f / 480.0f)
+		.SetBounds(0.0, 1.0, pangolin::Attach::Pix(UI_WIDTH), 1.0, - w/ (float) h)
 		.SetHandler(new pangolin::Handler3D(s_cam));
 
 	// Add named Panel and bind to variables beginning 'ui'

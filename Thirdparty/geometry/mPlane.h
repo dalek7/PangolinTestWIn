@@ -4,8 +4,22 @@
 // 2013/6/19
 // Seung-Chan Kim @ KAIST
 
+#include <vector>
 #include "Vectors.h"
 #include "ttMath.h"
+
+
+struct sPlane {
+	
+
+	
+	/*
+	inline 
+	*/
+};
+
+
+
 class mPlane
 {
 public:
@@ -26,9 +40,16 @@ public:
 
 	Vector3 &normal() { return m_normal; }
 
-public:
 
+public:
+	// from sPlane
+	void plane(Vector3 &p0, Vector3 &p1, Vector3 &p2);
+	double length(Vector3 &pt);
+
+public:
+	void DetectPlane(std::vector<Vector3>);
 		
+	
 
 	Vector3 pointOnPlane() { return m_normal * -m_d; }  //"arbitrary" point
 	
@@ -38,9 +59,10 @@ public:
 
 
 private:
-
     Vector3 m_normal; // <a, b, c>
     float m_d;
+
+	//double a, b, c, d;	// 평면의 방정식: ax + bx + cz + d = 0
 
 
 };
