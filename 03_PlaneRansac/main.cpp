@@ -34,8 +34,18 @@ int main()
 		cout << "Loaded...." << fnload << "\t..." <<  vPts.size() << endl;
 	}
 
+	//ransac_plane_fitting(std::vector<Vector3> vpts, mPlane &model, double distance_threshold);
+	mPlane model1;
+	double threshold = 0.1;
+	std::vector<Vector3> vpts_inliers;
+	double ret1 = mPlane::ransac_plane_fitting(vPts, vpts_inliers, model1, threshold);
+	
+	model1.Desc();
+	cout << vPts.size() << " --> " << vpts_inliers.size() << endl;
+
 	// Ransac plane
 
+	// TODo : display inliers !
 
 
 	int w = 640;// 640;

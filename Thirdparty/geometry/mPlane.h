@@ -9,17 +9,6 @@
 #include "ttMath.h"
 
 
-struct sPlane {
-	
-
-	
-	/*
-	inline 
-	*/
-};
-
-
-
 class mPlane
 {
 public:
@@ -30,8 +19,6 @@ public:
                       float c = 0.0, 
                       float d = 0.0);
 
-
-
 public:
 	float a() {return m_normal.x;}
 	float b() {return m_normal.y;}
@@ -40,11 +27,15 @@ public:
 
 	Vector3 &normal() { return m_normal; }
 
+public:
+	void Desc();
+
 
 public:
 	// from sPlane
 	void plane(Vector3 &p0, Vector3 &p1, Vector3 &p2);
 	double length(Vector3 &pt);
+	static double ransac_plane_fitting(std::vector<Vector3> vpts, std::vector<Vector3>& vpts_inliers, mPlane &model, double distance_threshold);
 
 public:
 	void DetectPlane(std::vector<Vector3>);

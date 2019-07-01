@@ -27,9 +27,6 @@
     <ClCompile Include="..\Thirdparty\geometry\mPlane.cpp">
       <Filter>Header Files\Thirdparty\plane</Filter>
     </ClCompile>
-    <ClCompile Include="..\Thirdparty\geometry\Matrices.cpp">
-      <Filter>Header Files\Thirdparty\plane</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Thirdparty\BB\bbutil.h">
@@ -53,7 +50,7 @@
     <ClInclude Include="..\Thirdparty\geometry\Vectors.h">
       <Filter>Header Files\Thirdparty\plane</Filter>
     </ClInclude>
-    <ClInclude Include="..\Thirdparty\geometry\Matrices.h">
+    <ClInclude Include="..\Thirdparty\geometry\MatrixAlgebra.h">
       <Filter>Header Files\Thirdparty\plane</Filter>
     </ClInclude>
   </ItemGroup>

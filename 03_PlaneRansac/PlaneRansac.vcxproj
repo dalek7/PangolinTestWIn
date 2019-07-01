@@ -117,7 +117,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Thirdparty\geometry\Matrices.cpp" />
     <ClCompile Include="..\Thirdparty\geometry\mPlane.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -126,7 +125,7 @@
     <ClInclude Include="..\Thirdparty\BB\bbutilfile.h" />
     <ClInclude Include="..\Thirdparty\BB\bbutilstring.h" />
     <ClInclude Include="..\Thirdparty\BB\mytime.h" />
-    <ClInclude Include="..\Thirdparty\geometry\Matrices.h" />
+    <ClInclude Include="..\Thirdparty\geometry\MatrixAlgebra.h" />
     <ClInclude Include="..\Thirdparty\geometry\mPlane.h" />
     <ClInclude Include="..\Thirdparty\geometry\ttMath.h" />
     <ClInclude Include="..\Thirdparty\geometry\Vectors.h" />
