@@ -129,6 +129,7 @@
     <ClInclude Include="..\Thirdparty\geometry\mPlane.h" />
     <ClInclude Include="..\Thirdparty\geometry\ttMath.h" />
     <ClInclude Include="..\Thirdparty\geometry\Vectors.h" />
+    <ClInclude Include="..\Thirdparty\geometry\vwPrimitives2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

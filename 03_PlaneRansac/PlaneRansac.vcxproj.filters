@@ -53,5 +53,8 @@
     <ClInclude Include="..\Thirdparty\geometry\MatrixAlgebra.h">
       <Filter>Header Files\Thirdparty\plane</Filter>
     </ClInclude>
+    <ClInclude Include="..\Thirdparty\geometry\vwPrimitives2.h">
+      <Filter>Header Files\Thirdparty\plane</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

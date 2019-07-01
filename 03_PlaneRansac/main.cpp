@@ -23,6 +23,8 @@ using namespace std;
 #include "geometry/mPlane.h"
 
 void glCircle3f(GLfloat x, GLfloat y, GLfloat z, GLfloat r);
+void DrawGrid(float size = 10, float step = 1, bool xz = true);
+
 int LoadFile(string fname,  vector<Vector3> &vPts, char deliminiter=',');
 int main()
 {
@@ -98,6 +100,8 @@ int main()
 
 		d_cam.Activate(s_cam);
 
+
+		DrawGrid(10, 1);
 		// Render OpenGL Cube
 		//pangolin::glDrawColouredCube();
 
@@ -192,3 +196,125 @@ void glCircle3f(GLfloat x, GLfloat y, GLfloat z, GLfloat r)
 	glEnd();
 	glPopMatrix();
 }
+
+
+void glCross3f(GLfloat x, GLfloat y, GLfloat z, GLfloat d)
+{
+	glPushMatrix();
+
+	glBegin(GL_LINE_STRIP);
+	glVertex3f(x - d / 2, y, z);
+	glVertex3f(x + d / 2, y, z);
+	glEnd();
+
+	glBegin(GL_LINE_STRIP);
+	glVertex3f(x, y - d / 2, z);
+	glVertex3f(x, y + d / 2, z);
+	glEnd();
+
+
+	glPopMatrix();
+}
+
+//http://ozark.hendrix.edu/~burch/cs/490/sched/feb8/
+//drawSphere(1.0, 10, 10);
+void drawSphere(double r, int lats, int longs)
+{
+
+	int i, j;
+	for (i = 0; i <= lats; i++) {
+		double lat0 = PI * (-0.5 + (double)(i - 1) / lats);
+		double z0 = sin(lat0);
+		double zr0 = cos(lat0);
+
+		double lat1 = PI * (-0.5 + (double)i / lats);
+		double z1 = sin(lat1);
+		double zr1 = cos(lat1);
+
+		glBegin(GL_QUAD_STRIP);
+		for (j = 0; j <= longs; j++) {
+			double lng = 2 * PI * (double)(j - 1) / longs;
+			double x = cos(lng);
+			double y = sin(lng);
+
+			glNormal3f(r* x * zr0, r* y * zr0, r* z0);
+			glVertex3f(r* x * zr0, r* y * zr0, r* z0);
+			glNormal3f(r* x * zr1, r* y * zr1, r* z1);
+			glVertex3f(r* x * zr1, r* y * zr1, r* z1);
+		}
+		glEnd();
+	}
+}
+
+
+
+void DrawGrid(float size, float step, bool xz)
+{
+	// disable lighting
+	glDisable(GL_LIGHTING);
+
+	glBegin(GL_LINES);
+
+	glColor3f(0.3f, 0.3f, 0.3f);
+	for (float i = step; i <= size; i += step)
+	{
+
+
+		if (xz)
+		{
+			glVertex3f(-size, 0, i);   // lines parallel to X-axis
+			glVertex3f(size, 0, i);
+			glVertex3f(-size, 0, -i);   // lines parallel to X-axis
+			glVertex3f(size, 0, -i);
+
+			glVertex3f(i, 0, -size);   // lines parallel to Z-axis
+			glVertex3f(i, 0, size);
+			glVertex3f(-i, 0, -size);   // lines parallel to Z-axis
+			glVertex3f(-i, 0, size);
+		}
+		else
+		{
+			glVertex3f(-size, i, 0);   // lines parallel to X-axis
+			glVertex3f(size, i, 0);
+			glVertex3f(-size, -i, 0);   // lines parallel to X-axis
+			glVertex3f(size, -i, 0);
+
+
+			glVertex3f(i, -size, 0);   // lines parallel to Z-axis
+			glVertex3f(i, size, 0);
+			glVertex3f(-i, -size, 0);   // lines parallel to Z-axis
+			glVertex3f(-i, size, 0);
+
+
+		}
+	}
+
+	// x-axis
+	glColor3f(0.5f, 0, 0);
+	glVertex3f(-size, 0, 0);
+	glVertex3f(size, 0, 0);
+
+	if (xz)
+	{
+		// z-axis
+		glColor3f(0, 0, 0.5f);
+		glVertex3f(0, 0, -size);
+		glVertex3f(0, 0, size);
+
+	}
+	else
+	{
+		// z-axis
+		glColor3f(0, 0.5f, 0);
+		glVertex3f(0, -size, 0);
+		glVertex3f(0, size, 0);
+	}
+
+
+	glEnd();
+
+	// enable lighting back
+	glColor3f(1, 1, 1);
+	glEnable(GL_LIGHTING);
+}
+
