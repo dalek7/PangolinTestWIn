@@ -4,6 +4,9 @@ Pangolin in Windows
 ### Example 1 : Hello
 <img src='01_Hello/Screenshots/helloworld.png' width =400px/>
 
+### Example 3 : Ransac plane fit
+<img src='03_PlaneRansac/Screenshots/image01.png' width =400px/>
+<img src='03_PlaneRansac/Screenshots/image03.png' width =400px/>
 
 ## Build Pangolin
  Make a directory called build in orbslam-windows/Thirdparty/Pangolin
