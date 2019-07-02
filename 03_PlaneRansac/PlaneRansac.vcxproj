@@ -69,8 +69,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>..\Thirdparty;..\Thirdparty\Pangolin\build\external\zlib\lib\;..\Thirdparty\Pangolin\build\external\glew\include;..\Thirdparty\Pangolin\include;..\Thirdparty\Pangolin\build\external;..\Thirdparty\Pangolin\build\src\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
-    <LibraryPath>..\Thirdparty\Pangolin\build\external\libpng\lib;..\Thirdparty\Pangolin\build\external\zlib\lib\;..\Thirdparty\Pangolin\build\external\libjpeg\lib\;..\Thirdparty\Pangolin\build\Release;..\Thirdparty\Pangolin\build\external\glew\lib;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
+    <IncludePath>..\Thirdparty;..\Thirdparty\Pangolin\build\external\zlib\lib\;..\Thirdparty\Pangolin\build\external\glew\include;..\Thirdparty\Pangolin\include;..\Thirdparty\Pangolin\build\external;$(OpenCV_DIR)\include;$(OpenCV_DIR)\include\opencv;..\Thirdparty\Pangolin\build\src\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <LibraryPath>$(OpenCV_DIR)\x64\vc14\lib\;..\Thirdparty\Pangolin\build\external\libpng\lib;..\Thirdparty\Pangolin\build\external\zlib\lib\;..\Thirdparty\Pangolin\build\external\libjpeg\lib\;..\Thirdparty\Pangolin\build\Release;..\Thirdparty\Pangolin\build\external\glew\lib;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -84,10 +84,10 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WINDOWS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WINDOWS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>glew.lib;pangolin.lib;jpeg.lib;zlib.lib;libpng16.lib;glu32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opencv_world320d.lib;glew.lib;pangolin.lib;jpeg.lib;zlib.lib;libpng16.lib;glu32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

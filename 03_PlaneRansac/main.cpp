@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include <vector>
+#include <opencv2/opencv.hpp>
 
 
 #ifndef PI
@@ -56,10 +57,31 @@ int main()
 	Vector3 centerPts = mPlane::CalcCentroid(vpts_inliers);
 	cout << "center : " << centerPts << endl;
 
-	
+	// Eigen
+	{
+		// TODo : display inliers !
+		cv::Mat_<double> cldm(vpts_inliers.size(), 3);
+		for (unsigned int i = 0; i < vpts_inliers.size(); i++) {
+			cldm.row(i)(0) = vpts_inliers[i].x;
+			cldm.row(i)(1) = vpts_inliers[i].y;
+			cldm.row(i)(2) = vpts_inliers[i].z;
+		}
 
-	// TODo : display inliers !
+		cv::Mat_<double> mean;
+		cv::PCA pca(cldm, mean, CV_PCA_DATA_AS_ROW);
 
+		cv::Vec3d eigv0 = pca.eigenvectors.row(0);
+		cv::Vec3d eigv1 = pca.eigenvectors.row(1);
+		cv::Vec3d eigv2 = pca.eigenvectors.row(2);
+
+		cout << "Eigen vectors" << endl;
+		cout << eigv0 << endl;
+		cout << eigv1 << endl;
+		cout << eigv2 << endl;
+	}
+
+
+	cout << "--------------------------" << endl;
 
 	int w = 640;// 640;
 	int h = 480;// 480;
@@ -117,7 +139,6 @@ int main()
 		glPointSize(3);
 		glBegin(GL_POINTS);
 		{
-
 			for (vector<Vector3>::const_iterator it = vPts.begin(); it != vPts.end(); ++it)
 			{
 
@@ -154,6 +175,10 @@ int main()
 		///DrawGrid(10, 1, true, false);
 		// TODO 
 		// Draw plane !
+		// eigenvectors if inliers
+		// eigv0 !
+		
+		//#include <opencv2/opencv.hpp>
 
 
 		// Swap frames and Process Events
