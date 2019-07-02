@@ -18,4 +18,3 @@ Pangolin in Windows
 - Build ALL_BUILD. You'll have an error by project testlog that says "cannot open input file 'pthread.lib'" but that doesn't matter cause we don't use testlog. Everything else should build fine, i.e., you should have
 ========== Build: 18 succeeded, 1 failed, 0 up-to-date, 0 skipped ==========
 See https://github.com/Phylliida/orbslam-windows/blob/master/README.md
-
