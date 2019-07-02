@@ -58,6 +58,8 @@ int main()
 	cout << "center : " << centerPts << endl;
 
 	// Eigen
+	cv::Vec3d eigv0, eigv1, eigv2;
+	cv::Vec3d eigval;
 	{
 		// TODo : display inliers !
 		cv::Mat_<double> cldm(vpts_inliers.size(), 3);
@@ -70,14 +72,23 @@ int main()
 		cv::Mat_<double> mean;
 		cv::PCA pca(cldm, mean, CV_PCA_DATA_AS_ROW);
 
-		cv::Vec3d eigv0 = pca.eigenvectors.row(0);
-		cv::Vec3d eigv1 = pca.eigenvectors.row(1);
-		cv::Vec3d eigv2 = pca.eigenvectors.row(2);
+		eigv0 = pca.eigenvectors.row(0);
+		eigv1 = pca.eigenvectors.row(1);
+		eigv2 = pca.eigenvectors.row(2);
+		
+		
+		eigval[0] = pca.eigenvalues.at<double>(0);
+		eigval[1] = pca.eigenvalues.at<double>(1);
+		eigval[2] = pca.eigenvalues.at<double>(2);
 
 		cout << "Eigen vectors" << endl;
 		cout << eigv0 << endl;
 		cout << eigv1 << endl;
 		cout << eigv2 << endl;
+
+		cout << "Eigen values" << endl;
+		cout << eigval << endl;
+
 	}
 
 
@@ -108,11 +119,12 @@ int main()
 	pangolin::CreatePanel("ui")
 		.SetBounds(0.0, 1.0, 0.0, pangolin::Attach::Pix(UI_WIDTH));
 
-	pangolin::Var<bool> a_button("ui.A_Button", false, false);
+	pangolin::Var<bool> bDrawAxis("ui.Draw Plane", false, false);
+	pangolin::Var<bool> bDrawInliers("ui.Draw Inliers", false, false);
 	pangolin::Var<double> a_double("ui.A_Double", 3, 0, 5);
 	pangolin::Var<int> an_int("ui.An_Int", 2, 0, 5);
 
-
+	
 	//pangolin::Var<bool> save_window("ui.Save_Window", false, false);
 	int count = 0;
 	while (!pangolin::ShouldQuit())
@@ -120,18 +132,11 @@ int main()
 		// Clear screen and activate view to render into
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		if (pangolin::Pushed(a_button))
-		{
-			std::cout << "You Pushed a button!" << std::endl;
-			a_double = 3.3; //for test
-		}
 
 		//a_double = 3.0 + sin((double)count / 1000.0);
 
 		d_cam.Activate(s_cam);
 
-
-		
 		// Render OpenGL Cube
 		//pangolin::glDrawColouredCube();
 
@@ -141,11 +146,9 @@ int main()
 		{
 			for (vector<Vector3>::const_iterator it = vPts.begin(); it != vPts.end(); ++it)
 			{
-
 				glColor3ub(255, 255, 255);
 				if (1)
 				{
-
 					glVertex3d(it->x, it->y, it->z - 0.01);
 				}
 				else
@@ -153,12 +156,12 @@ int main()
 					glCircle3f(it->x, it->y, it->z, 0.02);
 				}
 			}
-
 		}
 		glEnd();
 
 		
 		glColor3ub(255, 0, 0);
+		if(bDrawInliers)
 		for (vector<Vector3>::const_iterator it = vpts_inliers.begin(); it != vpts_inliers.end(); ++it)
 		{
 			//glVertex3d(it1->x, it1->y, it1->z - 0.01);
@@ -167,11 +170,41 @@ int main()
 		}
 		//glCross3f(centerPts.x, centerPts.y, centerPts.z, 1);
 
+		/*
 		glColor3ub(255, 255, 255);
 		glPushMatrix();
 			glTranslatef(centerPts.x, centerPts.y, centerPts.z);
 			DrawSphere(0.1, 16, 16);
 		glPopMatrix();
+		*/
+
+		if (bDrawAxis)
+		{
+			glLineWidth(2);
+
+			glColor3f(1, 0, 0);
+			glBegin(GL_LINE_STRIP);
+			glVertex3f(centerPts.x, centerPts.y, centerPts.z);
+			glVertex3f(centerPts.x - eigv0[0], centerPts.y - eigv0[1], centerPts.z - eigv0[2]);
+			glEnd();
+
+			glColor3f(0, 1, 0);
+			glBegin(GL_LINE_STRIP);
+			glVertex3f(centerPts.x, centerPts.y, centerPts.z);
+			glVertex3f(centerPts.x + eigv1[0], centerPts.y + eigv1[1], centerPts.z + eigv1[2]);
+			glEnd();
+
+			glColor3f(0, 0, 1);
+			glBegin(GL_LINE_STRIP);
+			glVertex3f(centerPts.x, centerPts.y, centerPts.z);
+			glVertex3f(centerPts.x + eigv2[0], centerPts.y + eigv2[1], centerPts.z + eigv2[2]);
+			glEnd();
+
+			glColor3f(0.5, 0.5, 0.5);
+
+			glLineWidth(1);
+
+		}
 		///DrawGrid(10, 1, true, false);
 		// TODO 
 		// Draw plane !
