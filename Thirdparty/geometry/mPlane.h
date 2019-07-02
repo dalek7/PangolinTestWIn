@@ -53,7 +53,7 @@ private:
     Vector3 m_normal; // <a, b, c>
     float m_d;
 
-	Vector3 centerPlane; //for applications
+	Vector3 centerPts; //for applications
 	//double a, b, c, d;	// 평면의 방정식: ax + bx + cz + d = 0
 
 

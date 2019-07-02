@@ -8,7 +8,7 @@ using namespace std;
 mPlane::mPlane(float a, float b, float c, float d) : 
 				m_normal(a, b, c),
 				m_d(d), 
-				centerPlane(0,0,0)
+				centerPts(0,0,0)
 {
 
 	float length = m_normal.length();

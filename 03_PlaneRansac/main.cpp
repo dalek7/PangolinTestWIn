@@ -204,14 +204,37 @@ int main()
 
 			glLineWidth(1);
 
+			// Plane drawing
+			int pw = 5;
+			int ph = ceil(pw * eigval[1]); //eig[1]//eigval[0]
+
+
+			for (int i = -pw; i<pw + 1; i++)
+			{
+				float ii = (float)i;
+				glBegin(GL_LINE_STRIP);
+
+				glVertex3f(centerPts.x - ph*eigv1[0] + ii*eigv0[0], centerPts.y - ph*eigv1[1] + ii*eigv0[1], centerPts.z - ph*eigv1[2] + ii*eigv0[2]);
+				glVertex3f(centerPts.x + ph*eigv1[0] + ii*eigv0[0], centerPts.y + ph*eigv1[1] + ii*eigv0[1], centerPts.z + ph*eigv1[2] + ii*eigv0[2]);
+
+				glEnd();
+
+			}
+			for (int i = -ph; i<ph + 1; i++)
+			{
+				float ii = (float)i;
+				glBegin(GL_LINE_STRIP);
+
+				glVertex3f(centerPts.x - pw*eigv0[0] + ii*eigv1[0], centerPts.y - (pw)*eigv0[1] + ii*eigv1[1], centerPts.z - pw*eigv0[2] + ii*eigv1[2]);
+				glVertex3f(centerPts.x + pw*eigv0[0] + ii*eigv1[0], centerPts.y + (pw)*eigv0[1] + ii*eigv1[1], centerPts.z + pw*eigv0[2] + ii*eigv1[2]);
+
+				glEnd();
+
+			}
+
+			glColor3f(1, 1, 1);
+
 		}
-		///DrawGrid(10, 1, true, false);
-		// TODO 
-		// Draw plane !
-		// eigenvectors if inliers
-		// eigv0 !
-		
-		//#include <opencv2/opencv.hpp>
 
 
 		// Swap frames and Process Events
