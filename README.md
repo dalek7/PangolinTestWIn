@@ -7,6 +7,7 @@ Pangolin in Windows
 ### Example 3 : Ransac plane fit
 <img src='03_PlaneRansac/Screenshots/image01.png' width =400px/>
 <img src='03_PlaneRansac/Screenshots/image03.png' width =400px/>
+<img src='03_PlaneRansac/Screenshots/image05.png' width =400px/>
 
 ## Build Pangolin
  Make a directory called build in orbslam-windows/Thirdparty/Pangolin
