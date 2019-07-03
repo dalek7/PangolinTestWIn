@@ -205,8 +205,8 @@ int main()
 			glLineWidth(1);
 
 			// Plane drawing
-			int pw = 5;
-			int ph = ceil(pw * eigval[1]); //eig[1]//eigval[0]
+			int pw = 3;
+			int ph = 3;// ceil(pw * eigval[1]); //eig[1]//eigval[0]
 
 
 			for (int i = -pw; i<pw + 1; i++)
@@ -229,13 +229,9 @@ int main()
 				glVertex3f(centerPts.x + pw*eigv0[0] + ii*eigv1[0], centerPts.y + (pw)*eigv0[1] + ii*eigv1[1], centerPts.z + pw*eigv0[2] + ii*eigv1[2]);
 
 				glEnd();
-
 			}
-
 			glColor3f(1, 1, 1);
-
 		}
-
 
 		// Swap frames and Process Events
 		pangolin::FinishFrame();
@@ -243,7 +239,6 @@ int main()
 		if (count == 100000)
 			count = 0;
 	}
-
 }
 
 //http://www.cplusplus.com/forum/general/150001/
@@ -355,8 +350,6 @@ void DrawGrid(float size, float step, bool xz, bool lighton)
 	glColor3f(0.3f, 0.3f, 0.3f);
 	for (float i = step; i <= size; i += step)
 	{
-
-
 		if (xz)
 		{
 			glVertex3f(-size, 0, i);   // lines parallel to X-axis
@@ -376,13 +369,10 @@ void DrawGrid(float size, float step, bool xz, bool lighton)
 			glVertex3f(-size, -i, 0);   // lines parallel to X-axis
 			glVertex3f(size, -i, 0);
 
-
 			glVertex3f(i, -size, 0);   // lines parallel to Z-axis
 			glVertex3f(i, size, 0);
 			glVertex3f(-i, -size, 0);   // lines parallel to Z-axis
 			glVertex3f(-i, size, 0);
-
-
 		}
 	}
 
@@ -397,7 +387,6 @@ void DrawGrid(float size, float step, bool xz, bool lighton)
 		glColor3f(0, 0, 0.5f);
 		glVertex3f(0, 0, -size);
 		glVertex3f(0, 0, size);
-
 	}
 	else
 	{
