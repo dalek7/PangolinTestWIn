@@ -12,6 +12,9 @@ Debug/
 *.VC.db
 *.opendb
 
+ipch/
+*.ipch 
+
 #cmake
 # See https://github.com/github/gitignore/blob/master/CMake.gitignore
 CMakeLists.txt.user
